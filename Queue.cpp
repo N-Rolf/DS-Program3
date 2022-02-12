@@ -44,7 +44,6 @@ StaticQueue::StaticQueue(StaticQueue &old) : head(old.head), tail(old.tail), Q_S
 {
     //cout << "Copying " << numItems << " items." << endl;
 
-    //PatientInfo element;
     queue = new PatientInfo[old.Q_SIZE];
 
     for (int count = 0; count < numItems; count++)
@@ -70,9 +69,6 @@ StaticQueue::StaticQueue(StaticQueue &old) : head(old.head), tail(old.tail), Q_S
 ********************************************************************/
 void StaticQueue::enqueue(const SElement name, int age, SElement problem)
 {
-    //cout << "EQ Starting head postition: " << head << endl;
-    //cout << "EQ Starting tail postition: " << tail << endl;
-    
     if (isFull())
     {
         cout << "Queue is full. Cannot add." << endl;
@@ -80,15 +76,6 @@ void StaticQueue::enqueue(const SElement name, int age, SElement problem)
     }
     else
     {
-        
-        // if (tail == Q_SIZE - 1)
-        // {
-        //     tail = 0;
-        // }
-        // else
-        // {
-        //     tail++;
-        // }
         tail = (tail+1) % Q_SIZE;
         queue[tail].name = name;
         queue[tail].age = age;
@@ -97,8 +84,6 @@ void StaticQueue::enqueue(const SElement name, int age, SElement problem)
         numItems++;
     }
 
-    //cout << "EQ Ending head postition: " << head << endl;
-    //cout << "EQ Ending tail postition: " << tail << endl;
 }
 
 /********************************************************************
@@ -113,27 +98,12 @@ void StaticQueue::enqueue(const SElement name, int age, SElement problem)
 ********************************************************************/
 void StaticQueue::dequeue(SElement & catchName, int & catchAge, SElement & catchProblem)
 {
-    //cout << "DQ Starting head postition: " << head << endl;
-    //cout << "DQ Starting tail postition: " << tail << endl;
-
-    //PatientInfo temp;
-
-
     if (isEmpty())
     {
         cout << "Queue is empty. Cannot delete." << endl;
     }
     else
     {
-        
-        // if (head == Q_SIZE - 1)
-        // {
-        //     head = 0;
-        // }
-        // else
-        // {
-        //     head++;
-        // }
         head = (head+1) % Q_SIZE;
         catchName = queue[head].name;
         catchAge = queue[head].age;
@@ -141,9 +111,6 @@ void StaticQueue::dequeue(SElement & catchName, int & catchAge, SElement & catch
         numItems--;
         //cout << "Dequeueing " << queue[head].name << " at " << head << " position." << endl;
     }
-    
-    //cout << "DQ Ending head postition: " << head << endl;
-    //cout << "DQ Ending tail postition: " << tail << endl;
 }
 
 /********************************************************************
@@ -195,30 +162,19 @@ bool StaticQueue::isEmpty() const
 ***  RETURN        : none                                         ***
 ********************************************************************/
 
-void StaticQueue::view()    //BETRAYAL BY SNEAKY OFF-BY-ONE ERROR IMMINENT!
+void StaticQueue::view()
 {
-    //cout << "View head: " << head << endl;
-    //cout << "View tail: " << tail << endl;
-    //cout << "Number of items: " << numItems << endl;
-    int i;
+    int i = 0;
+    cout << "Number of items: " << numItems << endl;
     if (numItems == 0)
         {
             cout << "Zero elements in Queue. Cannot view." << endl;
             return;
         }
     
-    if(head == tail)
-        i = head + 1;
-    if(head == -1)
-        i = 0;
-    else
-        i = head;
-    //cout << "View Starting head postition: " << head << endl;
-    //cout << "View Starting tail postition: " << tail << endl;
-    //cout << "Q_SIZE: " << Q_SIZE << endl;
-    cout << "HEAD\n";
+    i = head+1;
     
-    while (i != tail)
+    do
     {
         cout << "->" << queue[i].name << ", " << queue[i].age << ", " << queue[i].problem << endl;
         if (i == Q_SIZE-1)
@@ -229,10 +185,5 @@ void StaticQueue::view()    //BETRAYAL BY SNEAKY OFF-BY-ONE ERROR IMMINENT!
         {
             i++;
         }
-        //cout << "i = " << i << endl;
-    }
-
-    cout << "->TAIL" << endl;
-    //cout << "View Ending head postition: " << head << endl;
-    //cout << "View Ending tail postition: " << tail << endl;
+    } while (i != tail+1);
 }

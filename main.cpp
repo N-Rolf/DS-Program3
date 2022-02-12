@@ -1,9 +1,19 @@
+/********************************************************************
+***  NAME       :Neil Rolf                                        ***
+***  CLASS      :CSc 300                                          ***
+***  ASSIGNMENT :Assignment 3                                     ***
+***  DUE DATE   :02/11/2022                                       ***
+***  INSTRUCTOR :  Kurtenbach                                     ***
+*********************************************************************
+***  DESCRIPTION :Queue ADT implemented with linked list          ***
+********************************************************************/
 #include "Queue.h"
 #include <iostream>
 #include <string>
 
 using namespace std;
 
+void statusCheck(StaticQueue);
 const int SIZE = 10;
 
 int main()
@@ -26,12 +36,12 @@ int main()
     {
         testQueueA.enqueue(nameArray[i], ageArray[i], problemArray[i]);
     }
-    testQueueA.view();
+    statusCheck(testQueueA);
 
     //copy constructor test
     cout << "\ncopy constructor test\n" << "*********************************************\n"; 
     StaticQueue testQueueB(testQueueA);
-    testQueueB.view();
+    statusCheck(testQueueB);
 
     //partial dequeue test
     cout << "\npartial dequeue test - testQueueA\n" << "*********************************************\n"; 
@@ -40,6 +50,7 @@ int main()
         testQueueA.dequeue(nameArray[i], ageArray[i], problemArray[i]);
     }
     testQueueA.view();
+    //statusCheck(testQueueA); broken for some reason
 
     //enqueue overflow test
     cout << "\noverflow test - testQueueA\n" << "*********************************************\n"; 
@@ -47,15 +58,22 @@ int main()
     {
         testQueueA.enqueue(nameArray[i], ageArray[i], problemArray[i]);
     }
-    testQueueA.view();
+    statusCheck(testQueueA);
 
-    //dequeue all test
+    //underflow test
     cout << "\nunderflow enqueue test - testQueueA\n" << "*********************************************\n"; 
     for(i=0; i<11; i++)
     {
         testQueueA.dequeue(nameArray[i], ageArray[i], problemArray[i]);
     }
-    testQueueA.view();
+    statusCheck(testQueueA);
 
     return 0;
+}
+
+void statusCheck(StaticQueue object)
+{
+    object.view();
+    cout << "Empty status: " << object.isEmpty() << endl;
+    cout << "Full status: " << object.isFull() << endl;
 }
