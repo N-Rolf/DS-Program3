@@ -5,7 +5,7 @@
 ***  DUE DATE   :02/11/2022                                       ***
 ***  INSTRUCTOR :  Kurtenbach                                     ***
 *********************************************************************
-***  DESCRIPTION :Queue ADT implemented with linked list          ***
+***  DESCRIPTION :Queue ADT implemented with array                ***
 ********************************************************************/
 #include "Queue.h"
 #include <iostream>
